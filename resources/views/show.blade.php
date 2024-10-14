@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Task')
+@section('title', 'View Task')
 
 @section('content')
     <section class="w-2/3 mx-auto">
@@ -30,8 +30,12 @@
             @endif
 
             <div id="actions" class="flex gap-4">
-                <button class="rounded-lg px-4 text-white py-2 bg-blue-400">Edit</button>
-                <button class="rounded-lg px-4 text-white py-2 bg-red-400">Delete</button>
+                <a href="{{ route('tasks.edit', $task->id) }}"><button class="rounded-lg px-4 text-white py-2 bg-blue-400">Edit</button></a>
+                <form action="{{ route('tasks.destroy', ['task'=>$task]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="rounded-lg px-4 text-white py-2 bg-red-400">Delete</button>
+                </form>
 
                 @if(!$task->completed)
                     <button class="rounded-lg px-4 text-white py-2 bg-green-400">Completed</button>
